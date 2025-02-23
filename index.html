@@ -1,0 +1,222 @@
+<html>
+
+
+
+<style>
+
+
+.Numpad {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 5px;
+width: 430px;
+margin: 0 auto;
+justify-items: center;
+align-items: center;
+}
+
+.Numpad button {
+font-family: "Copperplate", fantasy;
+border-radius: 12px;
+font-size: 2rem;
+background-color: green;
+border: none;
+color: white;
+padding: 15px;
+cursor: pointer;
+box-sizing: border-box;
+width: 140px;
+height: 70px;
+}
+
+.Numpad button:hover {
+background-color: #006400;
+}
+
+.PassText {
+font-family: "Copperplate", fantasy;
+margin: auto;
+display: block;
+width: 400px;
+padding: 10px;
+font-size: 2rem;
+text-align: center;
+color: green;
+background-color: black;
+border: 2px;
+border-bottom-style: solid;
+border-color: green;
+border-radius: 8px;
+}
+
+.NameTag {
+font-family: "Copperplate", fantasy;
+margin: auto;
+width: 600px;
+padding: 10px;
+font-size: 2rem;
+text-align: center;
+color: green;
+background-color: black;
+border: 1px;
+border-color: green;
+border-radius: 8px;
+border-bottom-style: solid;
+}
+
+.Error {
+color: green;
+margin-top: 20px
+font-family: "Lucidia Console", monospace;
+display: none;
+text-align: center;
+border-radius: 8px;
+padding: 10px;
+margin: 0 auto;
+}
+
+.subbutton {
+background-color: black;
+font-family: "Copperplate", fantasy;
+color: green;
+border: 2px;
+text-align: center;
+border-radius: 8px;
+padding: 10px;
+font-size: 2rem;
+cursor: pointer;
+display: none;
+}
+
+.subbutton:hover {
+background.color: #006400;
+}
+
+.TROLL {
+color: green;
+margin-top: 20px
+font-family: "Lucidia Console", monospace;
+display: none;
+text-align: center;
+border-radius: 8px;
+padding: 10px;
+margin: 0 auto;
+}
+
+</style>
+
+<body style="background-color:black; color: green; text-align: center; font-family: 'Lucidia Console', monospace;">
+
+<title>Phone Unlocker</title>
+<p><h1>QR CODE SCANNED SUCCESSFULLY!</h1></p>
+<p><h2>Password?</h2></p>
+
+ <!-- Error Checker -->
+<div id = "Error"></div>
+
+<!-- Text Box -->
+<input type="text" id="NumInput" class="PassText" readonly />
+<br></br>
+
+<!-- Numpad Container -->
+<div class="Numpad">
+	<button onclick="placenum(1)">1</button>
+	<button onclick="placenum(2)">2</button>
+	<button onclick="placenum(3)">3</button>
+	<button onclick="placenum(4)">4</button>
+	<button onclick="placenum(5)">5</button>
+	<button onclick="placenum(6)">6</button>
+	<button onclick="placenum(7)">7</button>
+	<button onclick="placenum(8)">8</button>
+	<button onclick="placenum(9)">9</button>
+	<button onclick="clrtext()">Clear</button>	
+	<button onclick="placenum(0)">0</button>
+	<button onclick="givecode()">Done</button>
+</div>
+<br></br>
+
+<!-- Name Typer -->
+<h2><label for="Pername">Name Of Owner:</label></h2>
+<input type="text" id="Pername" class="NameTag" disabled>
+<br></br>
+
+<!-- Submit Button -->
+<button class="subbutton" id="subbutton" onclick="showsub()">OPEN PHONE</button>
+
+<!-- Submit Text -->
+<div class = "TROLL" id = "TROLL" style = "display: none;"><h3>There were no correct answers. Just enter it on the Phone lol</h3></div>
+
+</body>
+
+<script>
+
+
+function ErrorWrite(Text) {
+const ErrorBox = document.getElementById('Error');
+ErrorBox.value = Text;
+ErrorBox.style.display = 'block'; 
+ ErrorBox.textContent = Text;
+}
+
+function placenum(num) {
+const Inputs = document.getElementById('NumInput');
+if (Inputs.value.length <6) {
+Inputs.value += num;
+} else {
+ErrorWrite('Maximum Number of Digits is 6');
+setTimeout(() => ErrorWrite(''), 2000);
+}
+}
+
+function clrtext() {
+const Num = document.getElementById('NumInput');
+Num.value = '';
+}
+
+function givecode() {
+const Num = document.getElementById('NumInput');
+const buttons = document.querySelectorAll('.Numpad button')
+const nameInput = document.getElementById('Pername')
+if (Num.value.length < 6) {
+ErrorWrite('Not Enough Digits');
+setTimeout(() => ErrorWrite(''), 2000);
+} else {
+Num.value = 'Completed';
+buttons.forEach(button => {
+button.style.display = 'none';
+
+});
+nameInput.disabled = false;
+}
+}
+
+function SeeButton() {
+const nameInput = document.getElementById('Pername');
+const numInput = document.getElementById('NumInput');
+const subbutton = document.getElementById('subbutton');
+
+if (nameInput.value.length > 0 && /[a-zA-Z]/.test(nameInput.value) && numInput.value === 'Completed') {
+subbutton.style.display = 'inline';
+} else {
+subbutton.style.display = 'none';
+}
+}
+
+document.getElementById('Pername').addEventListener('input', SeeButton);
+document.getElementById('NumInput').addEventListener('input', SeeButton);
+
+function showsub() {
+const subbutton = document.getElementById('subbutton');
+const nameInput = document.getElementById('Pername');
+const numInput = document.getElementById('NumInput');
+const Textty = document.getElementById('TROLL')
+Textty.style.display = 'inline';
+nameInput.disabled = true;
+nameInput.value = 'Completed'
+subbutton.style.display = 'none'
+}
+
+</script>
+
+
+</html>
